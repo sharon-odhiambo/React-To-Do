@@ -4,7 +4,7 @@ import ToDoItem from './ToDoItem';
 
 export default class ToDoList extends React.PureComponent {
   render() {
-    const { todos, handleChangeProps } = this.props;
+    const { todos, handleChangeProps, deleteTodoProps } = this.props;
     return (
       <ul>
         {todos.map((todo) => (
@@ -12,6 +12,7 @@ export default class ToDoList extends React.PureComponent {
             key={todo.id}
             todo={todo}
             handleChangesMade={handleChangeProps}
+            deletedProps={deleteTodoProps}
           />
         ))}
       </ul>
@@ -21,6 +22,7 @@ export default class ToDoList extends React.PureComponent {
 ToDoList.propTypes = {
   todos: PropTypes.arrayOf,
   handleChangeProps: PropTypes.func.isRequired,
+  deleteTodoProps: PropTypes.func.isRequired,
 };
 
 ToDoList.defaultProps = {

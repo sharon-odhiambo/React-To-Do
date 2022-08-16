@@ -1,28 +1,31 @@
 import React from 'react';
 import ToDoList from './ToDoList';
+import InputTodo from './ToDoInput';
 
 export default class TodoContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [
-        {
-          id: 1,
-          title: 'Setup development environment',
-          completed: true,
-        },
-        {
-          id: 2,
-          title: 'Develop website and add content',
-          completed: false,
-        },
-        {
-          id: 3,
-          title: 'Deploy to live server',
-          completed: false,
-        },
-      ],
+      todos: [],
     };
+  }
+
+  componentDidMount() {
+    const temp = localStorage.getItem('todos');
+    const loadedTodos = JSON.parse(temp);
+    if (loadedTodos) {
+      this.setState({
+        todos: loadedTodos,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { todos } = this.state;
+    if (prevState.todos !== todos) {
+      const temp = JSON.stringify(todos);
+      localStorage.setItem('todos', temp);
+    }
   }
 
   handleChange = (id) => {
@@ -30,8 +33,7 @@ export default class TodoContainer extends React.PureComponent {
       todos: prevState.todos.map((todo) => {
         if (todo.id === id) {
           return {
-            ...todo,
-            completed: !todo.completed,
+            ...todo, completed: !todo.completed,
           };
         }
         return todo;
@@ -39,10 +41,36 @@ export default class TodoContainer extends React.PureComponent {
     }));
   };
 
+  addTodoItem = (id, title, completed = false) => {
+    const { todos } = this.state;
+    const newTodo = {
+      id, title, completed,
+    };
+    this.setState({
+      todos: [...todos, newTodo],
+    });
+  };
+
+  delTodo = (id) => {
+    const { todos } = this.state;
+    this.setState({
+      todos: [
+        ...todos.filter((todo) => todo.id !== id),
+      ],
+    });
+  };
+
   render() {
     const { todos } = this.state;
     return (
-      <ToDoList todos={todos} handleChangeProps={this.handleChange} />
+      <>
+        <InputTodo addTodoProps={this.addTodoItem} />
+        <ToDoList
+          todos={todos}
+          handleChangeProps={this.handleChange}
+          deleteTodoProps={this.delTodo}
+        />
+      </>
     );
   }
 }
