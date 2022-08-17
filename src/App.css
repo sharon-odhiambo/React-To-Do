@@ -48,6 +48,10 @@ form input {
   border: none;
 }
 
+form input:focus {
+  outline: none;
+}
+
 ul {
   display: flex;
   flex-direction: column;
