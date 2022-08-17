@@ -7,12 +7,14 @@ export default class ToDoItem extends React.PureComponent {
     const { todo, handleChangesMade, deletedProps } = this.props;
     return (
       <li key={todo.id} className={todo.completed ? 'checked' : null}>
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={() => handleChangesMade(todo.id)}
-        />
-        {todo.title}
+        <span>
+          <input
+            type="checkbox"
+            checked={todo.completed}
+            onChange={() => handleChangesMade(todo.id)}
+          />
+          {todo.title}
+        </span>
         <button type="button" onClick={() => deletedProps(todo.id)}>
           <FaTrash />
         </button>

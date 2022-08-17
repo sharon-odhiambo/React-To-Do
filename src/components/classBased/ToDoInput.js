@@ -22,7 +22,9 @@ class InputTodo extends Component {
     const { title } = this.state;
     const id = uuidv4();
     const { addTodoProps } = this.props;
-    addTodoProps(id, title);
+    if (title.trim()) {
+      addTodoProps(id, title);
+    }
     this.setState({
       title: '',
     });
