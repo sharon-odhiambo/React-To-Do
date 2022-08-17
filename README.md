@@ -14,6 +14,8 @@ HTML || CSS
 - HTML, CSS, JS linters
 - NodeJs Installed
 
+
+- Access the live version at [To-Do-List](https://sharon-odhiambo.github.io/React-To-Do/)
 ### Getting Started
 To get a local copy for practice or as a template, follow these simple steps.
 
