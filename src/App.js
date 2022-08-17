@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/functionBased/Header';
-import TodoContainer from './components/functionBased/ToDoContainer';
+import TodoContainer from './components/classBased/ToDoContainer';
 
 function App() {
   return (
